@@ -1,0 +1,150 @@
+/* ====================
+   Reset de estilos
+   ==================== */
+   * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* ====================
+     Fondo y contenedor
+     ==================== */
+  body {
+    background: #1B2631;
+    color: #fff;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #283646;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  /* ====================
+     Encabezado
+     ==================== */
+  h1 {
+    font-size: 24px;
+    margin-bottom: 28px;
+  }
+  
+  /* ====================
+     Buscador
+     ==================== */
+  .search {
+    display: flex;
+    align-items: center;
+    background: #212F3C;
+    border-radius: 5px;
+    padding: 12px 10px;
+    margin-bottom: 35px;
+  }
+  
+  .search-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-image: url('../assets/icons/search.svg');
+    filter: invert(1);
+    margin: 0 5px;
+  }
+  
+  .search input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #D5D8DC;
+    font-size: 14px;
+    margin-left: 8px;
+    outline: none;
+  }
+  
+  #searchInput::placeholder {
+    color: #D5D8DC;
+  }
+  
+  /* ====================
+     Grid de géneros
+     ==================== */
+  .generos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+  }
+  
+  /* ====================
+     Botones de género
+     ==================== */
+  .genero-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Imagen circular y hover */
+  .genero-btn img {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition:
+      filter 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+  
+  /* Sombra y elevación solo sobre la imagen */
+  .genero-btn:hover img,
+  .genero-btn:focus img {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transform: translateY(-4px);
+  }
+  
+  /* Estado seleccionado */
+  .genero-btn.selected img {
+    filter: grayscale(100%);
+  }
+  
+  /* Texto de género */
+  .genero-btn span {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #E5E8E8;
+    font-weight: bold;
+  }
+  
+  /* ====================
+     Botón “LISTO”
+     ==================== */
+  .confirmar-btn {
+    background: none;
+    border: 3px solid #ccc;
+    color: #ccc;
+    border-radius: 8px;
+    padding: 14px 40px;
+    font-size: 16px;
+    cursor: pointer;
+    transition:
+      border-color 0.3s ease,
+      color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  
+  .confirmar-btn:hover,
+  .confirmar-btn:focus {
+    border-color: #8a91f1;
+    color: #8a91f1;
+    box-shadow: 0 0 8px #8a91f1;
+    outline: none;
+  }
+  

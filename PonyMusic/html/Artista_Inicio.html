@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PonyMusic Artista_Inicio</title>
+    <link rel="stylesheet" href="../css/Styles_Artista_Inicio.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <!-- Aquí se debe mostrar el nombre del artista -->
+                    <h3>{{ artista.nombre }}</h3>
+                    <li><a href="Artista_Inicio.html" class="icon-home">Inicio</a></li>
+                    <li><a href="Artista_NuevaMusica.html" class="icon-add">Nueva música</a></li>
+                    <li><a href="Artista_Configuracion.html" class="icon-gear">Configuración</a></li>
+                    <li><a href="Artista_Archivos.html" class="icon-folder">Archivos</a></li>
+                </ul>
+            </nav>
+            <!-- Logo -->
+            <div class="logo">
+                <img src="../img/Ponymusic.webp" alt="Logo de PonyMusic">
+                <b>PonyMusic</b> <span>Artista</span>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <main>
+            <!-- Botón de información y menú desplegable -->
+            <div class="info-container">
+                <button class="info-btn" onclick="toggleMenu()">🐎</button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="Artista_Configuracion.html">Configuración de la cuenta</a>
+                    <a href="#">Cerrar sesión</a>
+                </div>
+            </div>
+
+      <!-- Sección: Perfil de artista -->
+<section class="artist-profile">
+  <div class="artist-card">
+    <button class="artist-btn" type="button" onclick="verArtista('{{ artista.id }}')">
+      <div class="artwork-scroll">
+        <img
+          src="{{ cancion.portada.url }}" alt="{{ cancion.portada }}">
+          alt="Foto de {{ artista.nombre }}"
+        />
+      </div>
+    </button>
+    <div class="artist-info">
+      <h1 class="artist-name">{{ artista.nombre }}</h1>
+      <p class="artist-desc">{{ artista.descripcion }}</p>
+    </div>
+  </div>
+</section>
+
+  <!-- Sección: Sencillos -->
+  <section class="carousel-section">
+    <h2 class="section-title">Sencillos</h2>
+    <div class="carousel-wrapper">
+      <button class="arrow left" aria-label="Anterior"></button>
+      <div class="carousel">
+        {% for cancion in sencillos %}
+          <div class="card">
+            <div class="card-item">
+              <a href="Artista_Sencillo.html">
+                  <button class="card-btn"">
+                    <img src="{{ cancion.portada.url }}" alt="{{ cancion.portada  }}">
+                  </button>
+                  </a>
+              <div class="card-info">
+                <div class="card-title">{{ cancion.nombre }}</div>
+                <div class="card-subtitle">{{ cancion.artista.nombre }}</div>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <div class="card empty">No hay sencillos disponibles.</div>
+        {% endfor %}
+      </div>
+      <button class="arrow right" aria-label="Siguiente"></button>
+    </div>
+  </section>
+
+  <!-- Sección: Albums -->
+  <section class="carousel-section">
+    <h2 class="section-title">Albums</h2>
+    <div class="carousel-wrapper">
+      <button class="arrow left" aria-label="Anterior"></button>
+      <div class="carousel">
+        {% for album in albums %}
+          <div class="card">
+            <div class="card-item">
+              <a href="Artista_Album.html">
+                  <button class="card-btn" onclick="playSong('{{ cancion.id }}')">
+                    <img src="{{ cancion.portada.url }}" alt="{{ cancion.portada  }}">
+                  </button>
+                  </a>
+              <div class="card-info">
+                <div class="card-title">{{ album.nombre }}</div>
+                <div class="card-subtitle">{{ album.artista.nombre }}</div>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <div class="card empty">No hay álbumes disponibles.</div>
+        {% endfor %}
+      </div>
+      <button class="arrow right" aria-label="Siguiente"></button>
+    </div>
+  </section>
+
+
+        </main>
+    </div>
+    <!-- Script -->
+    <script src="../js/Artista_Salir.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Usuario (Generos)</title>
+  <link rel="stylesheet" href="../css/Styles_Usuario_Generos.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- ================================
+        Header fijo (Buscador)
+        ================================ -->
+    <!-- Header fijo -->
+    <header class="header">
+      <div class="search-pill">
+        <a href="../html/Usuario_Inicio.html">
+          <button class="icon-btn home-btn" 
+                  aria-label="Inicio" 
+                  title="Inicio"></button>
+        </a>
+        
+        <div class="pill-separator"></div>
+        <div class="search">
+          <span class="search-icon"></span>
+          <input type="text"
+                id="searchInput"
+                placeholder="¿Qué quieres reproducir?"
+          />
+        </div>
+        <div class="pill-separator"></div>
+        <a href="../html/Usuario_Generos.html">
+        <button class="icon-btn action-btn"     aria-label="Géneros" title="Géneros"></button>
+        </a>
+    <!-- Botón Artista (nuevo) -->
+    <a href="../html/Usuario_Artistas.html">
+      <button class="icon-btn artist-btn" aria-label="Artista" title="Artista"></button>
+    </a>
+      </div>
+      <!-- dentro de tu <main> o donde quieras mostrar el icono de usuario -->
+<div class="info-container">
+  <!-- botón que abre el menú -->
+  <button class="info-btn" onclick="toggleMenu()">🐴</button>
+
+  <!-- menú desplegable -->
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="" class="dropdown-item">
+      Configuración de la cuenta
+    </a>
+    <!-- botón de cerrar sesión -->
+    <button type="button"
+            class="dropdown-item logout-btn"
+            onclick="logout()">
+      Cerrar sesión
+    </button>
+  </div>
+</div>
+
+    </header>
+    <!-- Fin Header fijo -->
+
+    <!-- ================================
+        Sidebar fijo (Navegación lateral)
+        ================================ -->
+    <!-- Sidebar fijo -->
+    <aside class="sidebar">
+      <!-- Biblioteca (imagen + texto) -->
+      <div class="sidebar-library">
+        <span class="biblioteca-icon"></span>
+        <span class="sidebar-text">Biblioteca</span>
+      </div>
+    
+      <hr class="sidebar-divider">
+    
+      <!-- Tus me gusta -->
+      <button class="playlist-item favorite-item">
+        <span class="favorite-icon"></span>
+        <span class="playlist-label">Tus me gusta</span>
+      </button>
+    
+      <!-- Playlists dinámicas -->
+      <div id="playlist-list" class="sidebar-playlists">
+        <!-- Aquí se irán insertando las playlists -->
+         {% for playlist in playlists %}
+      <!-- aquí tus enlaces o botones generados -->
+        {% endfor %}
+
+      </div>
+    
+      <!-- Botón fijo abajo -->
+      <button id="btn-new-playlist" class="sidebar-action">
+        <span class="action-icon"></span>
+        <span class="action-label">Crear playlist</span>
+      </button>
+    
+      <!-- Formulario para crear nueva playlist -->
+      <form
+        id="new-playlist-form"
+        class="new-playlist-entry hidden"
+        action="/api/songs"
+        method="POST"
+      >
+        <input
+          type="text"
+          name="name"
+          id="new-song-name"
+          placeholder="Nombre de la canción"
+          required
+        >
+        <button type="submit" class="playlist-save-btn">
+          Guardar
+        </button>
+      </form>
+    </aside>
+        
+    <!-- ================================
+        Contenido principal desplazable (Editable)
+        ================================ -->
+    <!-- Contenido principal desplazable -->
+<main class="main-content">
+  <!-- Sección: Géneros -->
+  <section class="genres-section">
+    <div class="genres-list">
+      {% for genero in generos %}
+        <a 
+          href="../html/Usuario_Mix.html" 
+          class="genre-card"
+        >
+          <div class="genre-image">
+            <img 
+              src="{{ genero.imagen.url }}" 
+              alt="{{ portada.genero }}"
+            >
+          </div>
+          <div class="genre-name">
+            {{ genero.nombre }}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+  
+</main>
+
+
+    <!-- Fin Contenido principal desplazable -->
+
+    <!-- ================================
+        Reproductor fijo (Footer)
+        ================================ -->
+    <!-- Reproductor fijo -->
+    <footer class="player">
+      <audio class="audio-player"></audio>
+      <div class="player-bottom">
+        <div class="progress-wrapper">
+          <div class="controls">
+            <button class="control-btn aleatorio-btn"    aria-label="Aleatorio"  title="Aleatorio"></button>
+            <button class="control-btn atras-btn"        aria-label="Anterior"   title="Anterior"></button>
+            <button class="control-btn play-btn"         aria-label="Play/Pausa" title="Play/Pausa"></button>
+            <button class="control-btn siguiente-btn"    aria-label="Siguiente"  title="Siguiente"></button>
+          </div>
+          <div class="progress-container">
+            <span class="time current">0:00</span>
+            <input type="range" class="progress" min="0" max="100" value="0">
+            <span class="time total">{{ cancion.longitud }}</span>
+          </div>
+        </div>
+        <div class="volume-container">
+          <button class="volume-icon" aria-label="Volumen" title="Volumen"></button>
+          <input type="range" class="volume-slider" min="0" max="100" value="100">
+        </div>
+        <div class="track-info-container">
+          <div class="info">
+            <span class="track-name">{{ cancion.nombre }}</span>
+            <span class="artist-name">{{ cancion.artista.nombre }}</span>
+          </div>
+          <div class="album-art">
+            <img src="{{ cancion.portada.url }}" alt="{{ cancion.portada }}">
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Fin Reproductor fijo -->
+
+  </div>
+
+  <!-- ================================
+      Scripts
+      ================================ -->
+  <!-- Scripts -->
+  <script src="../js/volumen.js"></script>
+  <script src="../js/controles.js"></script>
+  <script src="../js/Crear_Playlist.js"></script>
+  <script src="../js/Artista_Salir.js"></script>
+  <!-- Fin Scripts -->
+</body>
+</html>

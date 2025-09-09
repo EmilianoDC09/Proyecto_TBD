@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PonyMusic Artista - Archivos</title>
+    <link rel="stylesheet" href="../../static/styles/Artista/Styles_Artista_Archivos.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <h3>{{ usuario.nombre }}</h3>
+                    <li><a href="{% url 'Artista_Inicio' %}" class="icon-home">Inicio</a></li>
+                    <li><a href="{% url 'Artista_NuevaMusica' %}" class="icon-add">Nueva música</a></li>
+                    <li><a href="{% url 'Artista_Configuracion' %}" class="icon-gear">Configuración</a></li>
+                    <li><a href="{% url 'Artista_Archivos' %}" class="icon-folder">Archivos</a></li>
+                </ul>
+            </nav>
+            <div class="logo">
+                <img src="../../static/images/Icon.jpg" alt="Logo de PonyMusic">
+                <b>PonyMusic</b> <span>Artista</span>
+            </div>
+        </aside>
+
+        <main>
+            <h1>Canciones</h1>
+
+            <!-- Menú desplegable -->
+            <div class="info-container">
+                <button class="info-btn" onclick="toggleMenu()">🐎</button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="{% url 'Artista_Configuracion' %}">Configuración de la cuenta</a>
+                    <a href="{% url 'login' %}">Cerrar sesión</a>
+                </div>
+            </div>
+
+            <!-- Contenedor de canciones -->
+            <div id="contenedor-canciones">
+                <table id="tabla-canciones">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Álbum</th>
+                            <th>Genero</th>
+                            <!--<th>Longitud</th>-->
+                            <th>Fecha</th>
+
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cancion in canciones %}
+                        <tr>
+                            
+                            <td>{{ cancion.nombre }}</td>
+                            <td>{{ cancion.id_album}}</td>
+                            <td>{{ cancion.id_genero }}</td>
+                            <td>{{ cancion.fecha_lanzamiento }}</td>
+                            <td>
+                                <form method="POST">
+                                    {% csrf_token %} 
+                                    <input type="hidden" name="cancion_id" value="{{ cancion.id }}">
+                                    <input type="submit" class="btn-basura" name="eliminar_cancion", value="" >
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <!--Falta agregar duracion-->
+                            <!-- <td>{{ cancion.duracion }}</td> --> 
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+    </div>
+
+    <script src="../../static/js/Artista_Salir.js"></script>
+    <script src="../../static/js/Artista_Borrar.js"></script>
+</body>
+</html>

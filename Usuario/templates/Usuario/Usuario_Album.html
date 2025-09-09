@@ -1,0 +1,365 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Usuario (Album)</title>
+  <link rel="stylesheet" href="{% static 'styles/Usuario/Styles_Usuario_Album.css' %}">
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header fijo (Buscador) -->
+    <header class="header">
+      <div class="search-pill">
+        <a href="{% url 'Usuario_Inicio' %}">
+          <button class="icon-btn home-btn" 
+                  aria-label="Inicio" 
+                  title="Inicio"></button>
+        </a>
+        
+        <div class="pill-separator"></div>
+        <div class="search">
+          <span class="search-icon"></span>
+          <input type="text"
+                id="searchInput"
+                placeholder="¿Qué quieres reproducir?"
+          />
+        </div>
+        <div class="pill-separator"></div>
+        <a href="{% url 'Usuario_Generos' %}">
+        <button class="icon-btn action-btn"     aria-label="Géneros" title="Géneros"></button>
+        </a>
+    <!-- Botón Artista (nuevo) -->
+    <a href="{% url 'Usuario_Artistas' %}">
+      <button class="icon-btn artist-btn" aria-label="Artista" title="Artista"></button>
+    </a>
+      </div>
+      <!-- dentro de tu <main> o donde quieras mostrar el icono de usuario -->
+<div class="info-container">
+  <button class="info-btn" onclick="toggleMenu()">🐴</button>
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="{% url 'Usuario_Configuracion' %}" class="dropdown-item">
+      Configuración de la cuenta
+    </a>
+    <!-- botón de cerrar sesión -->
+    <a href="{% url 'login' %}" class="dropdown-item">
+      Cerrar sesión
+    </a>
+  </div>
+</div>
+
+    </header>
+
+    <!-- Sidebar fijo -->
+    <aside class="sidebar">
+      <!-- Biblioteca (imagen + texto) -->
+      <div class="sidebar-library">
+        <span class="biblioteca-icon"></span>
+        <span class="sidebar-text">Biblioteca</span>
+      </div>
+    
+      <hr class="sidebar-divider">
+    
+      <!-- Tus me gusta -->
+      <button class="playlist-item favorite-item">
+        <span class="favorite-icon"></span>
+        <span class="playlist-label">Tus me gusta</span>
+      </button>
+    
+      <!-- Playlists dinámicas -->
+      <div id="playlist-list" class="sidebar-playlists">
+        <!-- Aquí se irán insertando las playlists -->
+      </div>
+    
+      <!-- Botón fijo abajo -->
+      <button id="btn-new-playlist" class="sidebar-action">
+        <span class="action-icon"></span>
+        <span class="action-label">Crear playlist</span>
+      </button>
+    
+      <!-- Formulario para crear nueva playlist -->
+      <form
+        id="new-song-form"
+        class="new-playlist-entry hidden"
+        action="/api/songs"
+        method="POST"
+      >
+        <input
+          type="text"
+          name="name"
+          id="new-song-name"
+          placeholder="Nombre de la canción"
+          required
+        >
+        <button type="submit" class="playlist-save-btn">
+          Guardar
+        </button>
+      </form>
+    </aside>
+
+    <!-- Contenido principal: detalle de sencillo -->
+    <main class="main-content">
+
+      <!-- Encabezado gris del sencillo -->
+      <section class="sencillo-header">
+        <div class="artwork">
+          <img src="{{ album.portada.url }}" alt="{{ cancion.portada }}">
+        </div>
+        <div class="info">
+          <span class="label">Album</span>
+          <h1 class="title">{{ album.nombre }}</h1>
+          <h2 class="artist">{{ album.id_usuario }}</h2>
+          <p class="year">Año de lanzamiento: {{ album.fecha_lanzamiento }}</p>
+          <p class="count">Cantidad de canciones: {{ canciones.count }}</p>
+        </div>
+      </section>
+
+      <!-- Botón grande de play -->
+      <section class="play-section">
+        <button id="play-album-btn" class="play-album" aria-label="Reproducir sencillo"></button>
+      </section>
+
+<!-- Lista de pistas (una sola fila fija) -->
+<table class="tracklist">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Título</th>
+    <th>Artista</th>
+    <th><span class="icon-clock"></span></th>
+    <th>Más</th>
+  </tr>
+</thead>
+<tbody>
+  <!-- Línea separadora -->
+  <tr class="separator">
+    <td colspan="5">
+      <hr />
+    </td>
+  </tr>
+
+  {% for cancion in canciones %}
+    <tr data-song-id="{{ cancion.id }}">
+      <td>{{ forloop.counter }}</td>
+      <td>{{ cancion.nombre }}</td>
+      <td>{{ cancion.id_usuario }}</td>
+      <td>{{ cancion.duracion }}</td>
+      <td>
+        <div class="options-wrapper">
+          <button
+            type="button"
+            class="icon-btn mas-options-btn"
+            aria-label="Más opciones"
+            title="Más opciones">
+          </button>
+
+          <div class="dropdown-menu">
+            <button
+              type="button"
+              class="dropdown-item"
+              data-action="playlist">
+              <img src="../../icons/plus.svg" alt="+">
+              Agregar a playlist
+            </button>
+            <form
+              method="post"
+              class="dropdown-form">
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="dropdown-item like-item">
+                <img src="../../icons/heart.svg" alt="♥">
+                Agregar a mis me gusta
+              </button>
+            </form>
+          </div>
+
+          <!-- ► sub-menú de playlists -->
+          <div class="playlist-menu">
+            {% for playlist in playlists %}
+              <form
+                method="post"
+                action="{% url 'playlist_add_song' playlist.id %}"
+                class="dropdown-form">
+                {% csrf_token %}
+                <input type="hidden" name="song" value="{{ cancion.id }}">
+                <button
+                  type="submit"
+                  class="dropdown-item playlist-item">
+                  {{ playlist.nombre }}
+                </button>
+              </form>
+            {% empty %}
+              <div class="dropdown-item no-playlists">
+                No tienes playlists
+              </div>
+            {% endfor %}
+          </div>
+          <!-- FIN sub-menú -->
+
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+</tbody>
+</table>
+    </main>
+
+    <!-- Reproductor fijo (Footer) -->
+    <footer class="player">
+      <audio class="audio-player"></audio>
+      <div class="player-bottom">
+        <div class="progress-wrapper">
+          <div class="controls">
+            <button class="control-btn aleatorio-btn" aria-label="Aleatorio" title="Aleatorio"></button>
+            <button class="control-btn atras-btn"     aria-label="Anterior"   title="Anterior"></button>
+            <button class="control-btn play-btn"      aria-label="Play/Pausa" title="Play/Pausa"></button>
+            <button class="control-btn siguiente-btn" aria-label="Siguiente"  title="Siguiente"></button>
+          </div>
+          <div class="progress-container">
+            <span class="time current">0:00</span>
+            <input type="range" class="progress" min="0" max="100" value="0">
+            <span class="time total">{{ cancion.longitud }}</span>
+          </div>
+        </div>
+        <div class="volume-container">
+          <button class="volume-icon" aria-label="Volumen" title="Volumen"></button>
+          <input type="range" class="volume-slider" min="0" max="100" value="100">
+        </div>
+        <div class="track-info-container">
+          <div class="info">
+            <span class="track-name">{{ cancion.nombre }}</span>
+            <span class="artist-name">{{ cancion.id_usuario }}</span>
+          </div>
+          <div class="album-art">
+            <img src="{{ cancion.portada }}" alt="{{ cancion.portada }}">
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  {% load static %}
+
+
+  <script src="../../static/js/volumen.js"></script>
+  <script src="../../static/js/controles.js"></script>
+  <script src="../../static/js/Crear_Playlist.js"></script>
+  <script src="../../static/js/ScrollBar.js"></script>
+    <script src="../../static/js/Artista_Salir.js"></script>
+  <script src="../../static/js/Agregar_Playlist.js"></script>
+
+</body>
+
+
+</html>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const playAlbumBtn = document.getElementById("play-album-btn");
+  const footerPlayBtn = document.querySelector(".play-btn");
+  const audioPlayer = document.querySelector(".audio-player");
+  const progressBar = document.querySelector(".progress");
+  const currentTimeLabel = document.querySelector(".time.current");
+  const totalTimeLabel = document.querySelector(".time.total");
+
+  const firstRow = document.querySelector(".tracklist tbody tr[data-song-id]");
+  const audioSrc = firstRow ? firstRow.dataset.url : null;
+  const cancionId = firstRow ? firstRow.dataset.songId : null;
+
+  let audioLoaded = false;
+  let isSeeking = false;
+  let reproduccionRegistrada = false;
+
+  function togglePlay() {
+    if (!audioSrc) return;
+
+    if (!audioLoaded) {
+      audioPlayer.src = audioSrc;
+      audioPlayer.load();
+      audioLoaded = true;
+    }
+
+    if (audioPlayer.paused) {
+      audioPlayer.play();
+      updatePlayState(true);
+
+      if (!reproduccionRegistrada && cancionId) {
+        fetch(`/reproducir/${cancionId}/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            console.log("Reproducción registrada.");
+            reproduccionRegistrada = true;
+          } else {
+            console.error("Error al registrar la reproducción.");
+          }
+        })
+        .catch(error => {
+          console.error("Error de red:", error);
+        });
+      }
+
+    } else {
+      audioPlayer.pause();
+      updatePlayState(false);
+    }
+  }
+
+  function updatePlayState(isPlaying) {
+    playAlbumBtn.classList.toggle("playing", isPlaying);
+    footerPlayBtn.classList.toggle("playing", isPlaying);
+  }
+
+  playAlbumBtn.addEventListener("click", togglePlay);
+  footerPlayBtn.addEventListener("click", togglePlay);
+
+  audioPlayer.addEventListener("timeupdate", function () {
+    if (audioPlayer.duration && !isSeeking) {
+      const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+      progressBar.value = progress;
+
+      const mins = Math.floor(audioPlayer.currentTime / 60);
+      const secs = Math.floor(audioPlayer.currentTime % 60).toString().padStart(2, '0');
+      currentTimeLabel.textContent = `${mins}:${secs}`;
+    }
+  });
+
+  audioPlayer.addEventListener("loadedmetadata", function () {
+    const mins = Math.floor(audioPlayer.duration / 60);
+    const secs = Math.floor(audioPlayer.duration % 60).toString().padStart(2, '0');
+    totalTimeLabel.textContent = `${mins}:${secs}`;
+  });
+
+  audioPlayer.addEventListener("ended", function () {
+    updatePlayState(false);
+  });
+
+  progressBar.addEventListener("mousedown", () => isSeeking = true);
+  progressBar.addEventListener("touchstart", () => isSeeking = true);
+
+  progressBar.addEventListener("input", function () {
+    if (audioPlayer.duration) {
+      const newTime = (progressBar.value / 100) * audioPlayer.duration;
+      audioPlayer.currentTime = newTime;
+
+      const mins = Math.floor(audioPlayer.currentTime / 60);
+      const secs = Math.floor(audioPlayer.currentTime % 60).toString().padStart(2, '0');
+      currentTimeLabel.textContent = `${mins}:${secs}`;
+    }
+  });
+
+  progressBar.addEventListener("mouseup", () => isSeeking = false);
+  progressBar.addEventListener("touchend", () => isSeeking = false);
+});
+</script>

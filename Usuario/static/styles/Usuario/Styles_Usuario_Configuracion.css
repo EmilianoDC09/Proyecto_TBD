@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #1B2631;
+    color: #E5E8E8;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid #212F3C;
+}
+
+.app-header h1 {
+    color: #8a91f1;
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+.app-header h2 {
+    color: #D5D8DC;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+
+.settings-container {
+    background-color: #283646;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.settings-block {
+    padding: 20px;
+    border-bottom: 1px solid #212F3C;
+}
+
+.settings-block:last-child {
+    border-bottom: none;
+}
+
+.settings-block h3 {
+    color: #8a91f1;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.account-block {
+    background-color: #212F3C;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.setting-item:last-child {
+    margin-bottom: 0;
+}
+
+.setting-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-label {
+    font-weight: 500;
+    margin-bottom: 3px;
+    color: #E5E8E8;
+}
+
+.setting-value {
+    color: #D5D8DC;
+    font-size: 0.9rem;
+}
+
+.edit-btn {
+    background-color: #8a91f1;
+    color: #1B2631;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    min-width: 80px;
+}
+
+.edit-btn:hover {
+    background-color: #a0a6f3;
+    box-shadow: 0 0 8px rgba(138, 145, 241, 0.6);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #283646;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h3 {
+    color: #8a91f1;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #E5E8E8;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #212F3C;
+    border: 1px solid #34495E;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #D5D8DC;
+}
+
+.form-group input:focus {
+    border-color: #8a91f1;
+    outline: none;
+    box-shadow: 0 0 5px rgba(138, 145, 241, 0.5);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.cancel-btn, .submit-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+    transition: all 0.2s;
+}
+
+.cancel-btn {
+    background-color: #212F3C;
+    color: #D5D8DC;
+    border: 1px solid #34495E;
+}
+
+.cancel-btn:hover {
+    background-color: #2C3E50;
+}
+
+.submit-btn {
+    background-color: #8a91f1;
+    color: #1B2631;
+}
+
+.submit-btn:hover {
+    background-color: #a0a6f3;
+    box-shadow: 0 0 8px rgba(138, 145, 241, 0.6);
+}
+
+/* Password validation styles */
+.password-input-container {
+    position: relative;
+}
+
+.validation-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #2ECC71;
+    display: none;
+}
+
+.password-requirements {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #212F3C;
+    border-radius: 5px;
+    border: 1px solid #34495E;
+}
+
+.password-requirements p {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #E5E8E8;
+}
+
+.password-requirements ul {
+    list-style-type: none;
+    padding-left: 5px;
+}
+
+.password-requirements li {
+    font-size: 0.85rem;
+    color: #D5D8DC;
+    margin-bottom: 3px;
+}
+
+.password-requirements li.valid {
+    color: #2ECC71;
+}
+
+.password-requirements li.valid::before {
+    content: "✓";
+    margin-right: 5px;
+}
+
+.password-requirements li.invalid::before {
+    content: "○";
+    margin-right: 5px;
+}
+
+.home-btn {
+    background-color: #8a91f1;
+    color: #1B2631;
+    padding: 0.6em 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-decoration: none; /* Para quitar subrayado si es un enlace */
+    display: inline-block; /* Para que funcione el padding si es un enlace */
+    transition: all 0.3s ease;
+    margin: 10px 0; /* Ajusta según necesites */
+    
+}
+
+.home-btn:hover {
+background-color: #a0a6f3;
+    box-shadow: 0 0 8px rgba(138, 145, 241, 0.6);
+    transform: translateY(-2px); /* Efecto de elevación sutil */
+}
+
+/* Estilos para el footer */
+.footer-nav {
+    text-align: center;
+    margin-top: 2em;
+    padding: 1em 0;
+}
+
+/* Sobreescribe solo los estilos necesarios del botón home-btn en el footer */
+.footer-nav .home-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}

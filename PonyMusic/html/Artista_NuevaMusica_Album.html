@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PonyMusic Artista_NuevaMusica</title>
+  <link rel="stylesheet" href="../css/Styles_Artista_NuevaMusica_Sencillo.css" />
+</head>
+<body>
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav>
+        <ul>
+          <h3>{{ artista.nombre }}</h3>
+          <li><a href="Artista_Inicio.html" class="icon-home">Inicio</a></li>
+          <li><a href="Artista_NuevaMusica.html" class="icon-add">Nueva música</a></li>
+          <li><a href="Artista_Configuracion.html" class="icon-gear">Configuración</a></li>
+          <li><a href="Artista_Archivos.html" class="icon-folder">Archivos</a></li>
+        </ul>
+      </nav>
+      <div class="logo">
+        <img src="../img/Ponymusic.webp" alt="Logo de PonyMusic">
+        <b>PonyMusic</b> <span>Artista</span>
+      </div>
+    </aside>
+    <!-- /Sidebar -->
+
+    <!-- Main content -->
+    <main class="main-content">
+
+      <!-- Info button -->
+      <div class="info-container">
+        <button class="info-btn" onclick="toggleMenu()">🐎</button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="Artista_Configuracion.html">Configuración de la cuenta</a>
+          <a href="#">Cerrar sesión</a>
+        </div>
+      </div>
+      <!-- /Info button -->
+
+      <!-- Header de subida -->
+      <div class="upload-header">
+        <h1>Sube nueva música</h1>
+        <h2>Tipo / <strong>Carga</strong></h2>
+        <hr class="divider-hr" />
+        <p class="subtitle">Álbum</p>
+      </div>
+      <!-- /Header -->
+
+      <!-- Formulario POST -->
+      <form
+        id="nuevaMusicaForm"
+        class="upload-section"
+        method="POST"
+        enctype="multipart/form-data"
+        action="tu_script.php"
+      >
+        <div class="upload-content">
+
+          <!-- IZQUIERDA: datos con scroll interno -->
+          <div class="upload-info info-scroll">
+            {% csrf_token %}
+            <div class="info-header">Información del álbum</div>
+
+            <!-- Nombre del álbum -->
+            <label for="nombre_album">Nombre del álbum</label>
+            <input
+              id="nombre_album"
+              name="nombre_album"
+              type="text"
+              placeholder="Ponle un nombre a tu álbum"
+              required
+            />
+
+            <!-- Listado dinámico de canciones -->
+            <div class="songs-wrapper">
+              <div id="songsContainer">
+                <div class="song-entry">
+                  <label>Nombre de la canción</label>
+                  <input
+                    name="cancion_nombre"
+                    type="text"
+                    placeholder="Ponle un nombre a tu canción"
+                    required
+                  />
+                  <label class="file-btn">
+                    Elige una canción
+                    <input
+                      name="cancion_archivo"
+                      type="file"
+                      accept="audio/*"
+                      class="song-file-input"
+                      required
+                    />
+                  </label>
+                  <input
+                    type="hidden"
+                    name="cancion_duracion"
+                    class="song-duration"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- /Listado de canciones -->
+
+            <!-- Agregar canción -->
+            <div style="text-align: right; margin: .5rem 0;">
+              <button type="button" id="addSongBtn" class="btn add-btn">
+                + Agregar canción
+              </button>
+            </div>
+
+            <!-- Selector de portada -->
+            <label for="portada" class="file-btn">
+              Elige una portada
+              <input
+                id="portada"
+                name="portada"
+                type="file"
+                accept="image/*"
+                required
+              />
+            </label>
+
+            <!-- Guardar (vista previa) -->
+            <div style="text-align: center; margin-top: 1rem;">
+              <button type="button" id="previewBtn" class="btn save-btn">
+                Guardar
+              </button>
+            </div>
+
+          </div>
+          <!-- /upload-info -->
+
+          <!-- PREVIEW DERECHO -->
+          <div class="upload-preview">
+            <div class="preview-card">
+              <div class="preview-image">
+                <img id="preview-img" src="" alt="Portada preview" style="display:none"/>
+              </div>
+              <p class="preview-artist">“{{ artista.nombre }}”</p>
+              <p class="preview-song">
+                “<span id="preview-title">Nombre álbum</span>”
+              </p>
+              <ol id="preview-list"></ol>
+            </div>
+          </div>
+          <!-- /upload-preview -->
+
+        </div>
+        <!-- /upload-content -->
+
+        <!-- Enviar a revisión -->
+        <div class="submit-row">
+          <button 
+            type="submit" 
+            class="btn submit-btn"
+            formaction="Artista_NuevaMusica.html"
+          >
+            Enviar a revisión
+          </button>
+        </div>
+      </form>
+      <!-- /Form -->
+    </main>
+    <!-- /Main content -->
+
+  </div>
+  <!-- /Container -->
+
+  <script src="../js/Artista_CancionDinamica.js"></script>
+  <script src="../js/Duracion_Audio.js"></script>
+  <script src="../js/PreviewFormData.js"></script>
+  <script src="../js/Artista_Guardar_Album.js"></script>
+  <script src="../js/Artista_Salir.js"></script>
+</body>
+</html>

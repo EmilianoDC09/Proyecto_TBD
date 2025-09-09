@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PonyMusic Artista_NuevaMusica</title>
+    <link rel="stylesheet" href="../../static/styles/Artista/Styles_Artista_NuevaMusica.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- Sidebar sin cambios -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <h3>{{ usuario.nombre }}</h3>
+                    <li><a href="{% url 'Artista_Inicio' %}" class="icon-home">Inicio</a></li>
+                    <li><a href="{% url 'Artista_NuevaMusica' %}" class="icon-add">Nueva música</a></li>
+                    <li><a href="{% url 'Artista_Configuracion' %}" class="icon-gear">Configuración</a></li>
+                    <li><a href="{% url 'Artista_Archivos' %}" class="icon-folder">Archivos</a></li>
+                </ul>
+            </nav>
+            <div class="logo">
+                <img src="../../static/images/Icon.jpg" alt="Logo de PonyMusic">
+                <b>PonyMusic</b> Artista
+            </div>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main>
+
+            <!-- Menú desplegable -->
+            <div class="info-container">
+                <button class="info-btn" onclick="toggleMenu()">🐎</button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="{% url 'Artista_Configuracion' %}">Configuración de la cuenta</a>
+                    <a href="{% url 'login' %}">Cerrar sesión</a>
+                </div>
+            </div>
+
+            <!-- Encabezado de la sección -->
+            <div class="upload-header">
+                <h1>Sube nueva música</h1>
+                <h2><strong>Tipo</strong> / Carga</h2>
+                <hr class="divider-hr">
+                <p class="subtitle">Elige cómo quieres subir tu música</p>
+            </div>
+
+            <!-- Opciones de carga -->
+            <div class="upload-options">
+
+                <!-- Opción Sencillo -->
+                <div class="upload-sencillo">
+                    <a
+                        href="{% url 'Artista_NuevaMusica_Sencillo' %}"
+                        class="upload-sencillo-btn"
+                        id="upload-sencillo-btn"
+                        role="button"
+                    >
+                        Sencillo
+                    </a>
+                    <div class="upload-sencillo-image">
+                        <img src="../../static/images/sencillo.jpg" alt="Sencillo">
+                    </div>
+                </div>
+
+                <!-- Opción Álbum -->
+                <div class="upload-album">
+                    <a
+                        href="{% url 'Artista_NuevaMusica_Album' %}"
+                        class="upload-album-btn"
+                        id="upload-album-btn"
+                        role="button"
+                    >
+                        Álbum
+                    </a>
+                    <div class="upload-album-image">
+                        <img src="../../static/images/album.jpg" alt="Álbum">
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="../../static/js/Artista_Salir.js"></script>
+</body>
+</html>

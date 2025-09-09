@@ -1,0 +1,247 @@
+/* Reset & Base */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout principal */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar — fondo y contenedor */
+.sidebar {
+  background-color: #2c3e50;
+  color: #ffffff;
+  width: 240px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Sidebar navegación */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar ul li {
+  padding: 16px 25px;
+  margin: 0 -30px;
+  font-size: 16px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.sidebar ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+  white-space: nowrap;
+}
+.sidebar ul li:hover {
+  background-color: #162529;
+}
+
+/* Sidebar logo */
+.sidebar .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px;
+  font-size: 20px;
+}
+.sidebar .logo img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: text-bottom;
+}
+
+/* Sidebar iconos */
+.icon-home,
+.icon-add,
+.icon-gear,
+.icon-folder {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon-home::before   { background-image: url('../../icons/house.svg'); }
+.icon-add::before    { background-image: url('../../icons/add.svg'); }
+.icon-gear::before   { background-image: url('../../icons/gear.svg'); }
+.icon-folder::before { background-image: url('../../icons/folder.svg'); }
+.icon-home::before,
+.icon-add::before,
+.icon-gear::before,
+.icon-folder::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: invert(1);
+  margin-right: 8px;
+  vertical-align: text-bottom;
+}
+
+/* Main container */
+main {
+  flex: 1;
+  padding: 50px;
+  background-color: #ffffff;
+  position: relative;
+}
+
+/* Info button */
+.info-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+.info-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+.info-btn:hover {
+  background-color: #162529;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-menu.show {
+  display: block;
+}
+.dropdown-menu a {
+  display: block;
+  padding: 12px 16px;
+  color: black;
+  text-decoration: none;
+}
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Sección de cabecera */
+.upload-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.upload-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+.upload-header h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 50px 0 0;
+}
+
+/* Línea divisoria */
+.divider-hr {
+  width: 60%;
+  margin: 1rem auto;
+  border: none;
+  border-top: 1px solid #000000;
+}
+
+/* Subtítulo */
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 30px 0 2rem;
+  color: #000000;
+}
+
+/* Contenedor de opciones */
+.upload-options {
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  margin-top: 10px;
+}
+
+/* Cada bloque de opción */
+.upload-sencillo,
+.upload-album {
+  text-align: center;
+}
+
+/* Enlace estilo botón */
+.upload-sencillo-btn,
+.upload-album-btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background-color: #2c3e50;
+  color: #ffffff;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 140px;
+  max-width: 140px;
+  margin: 0 auto;
+}
+
+/* Hover/Active botones */
+.upload-sencillo-btn:hover,
+.upload-sencillo-btn.active,
+.upload-album-btn:hover,
+.upload-album-btn.active {
+  background-color: #162529;
+}
+
+/* Contenedor imagen sencillo */
+.upload-sencillo-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  margin-top: 1rem;
+}
+.upload-sencillo-image img {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Contenedor imagen álbum */
+.upload-album-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  margin-top: 1rem;
+}
+.upload-album-image img {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+}

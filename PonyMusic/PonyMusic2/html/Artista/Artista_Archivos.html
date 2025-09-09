@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PonyMusic Artista - Archivos</title>
+    <link rel="stylesheet" href="../css/Styles_Artista_Archivos.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <!-- Aquí se debe mostrar el nombre del artista 
+                    {% for artista in nombres %}
+                        <h3>{{ artista.nombre }}</h3>
+                    {% endfor %}-->
+                    <h3>{{ artista.nombre }}</h3>
+                    <li>
+                        <a href="Artista_Inicio.html" class="icon-home">
+                            Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Artista_NuevaMusica.html" class="icon-add">
+                            Nueva música
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Artista_Configuracion.html" class="icon-gear">
+                            Configuración
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Artista_Archivos.html" class="icon-folder">
+                            Archivos
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="logo">
+                <img src="../img/Ponymusic.webp" alt="Logo de PonyMusic">
+                <b>PonyMusic</b> <span>Artista</span>
+            </div>
+        </aside>
+
+        <main>
+            <h1>Canciones</h1>
+
+            <!-- Menú desplegable -->
+            <div class="info-container">
+                <button class="info-btn" onclick="toggleMenu()">🐎</button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="Artista_Configuracion.html">Configuración de la cuenta</a>
+                    <a href="#">Cerrar sesión</a>
+                </div>
+            </div>
+
+            <!-- Contenedor de canciones -->
+            <div id="contenedor-canciones">
+                <table id="tabla-canciones">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Álbum</th>
+                            <th>Longitud</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cancion in canciones %}
+                        <tr>
+                            <td>{{ cancion.nombre }}</td>
+                            <td>{{ cancion.album }}</td>
+                            <td>{{ cancion.longitud }}</td>
+                            <td>{{ cancion.fecha }}</td>
+                            <td>
+                                <form method="POST" action="{% url 'borrar_cancion' %}" class="form-eliminar">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="cancion_id" value="{{ cancion.id }}">
+                                    <input type="submit" class="btn-basura" value="">
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+    </div>
+
+    <script src="../js/Artista_Salir.js"></script>
+    <script src="../js/Artista_Borrar.js"></script>
+</body>
+</html>

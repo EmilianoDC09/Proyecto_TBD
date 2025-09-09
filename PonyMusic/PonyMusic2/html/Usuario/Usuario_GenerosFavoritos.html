@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Usuario generos</title>
+  <link rel="stylesheet" href="../css/Styles_Usuario_GenerosFavoritos.css">
+</head>
+<body>
+
+  <form action="save-generos" method="POST" class="container">
+    {% csrf_token %} 
+
+    <h1>Elige algún género que te guste</h1>
+
+    <div class="search">
+      <span class="search-icon"></span>
+      <input type="text" id="searchInput" placeholder="Buscar">
+    </div>
+
+    <div class="generos">
+      <!-- POP -->
+      <input type="checkbox" id="gen-pop" name="genres" value="pop" hidden>
+      <label for="gen-pop" class="genero-btn" data-name="pop">
+        <img src="../img/POP.webp" alt="Pop">
+        <span>POP</span>
+      </label>
+
+      <!-- HIP HOP -->
+      <input type="checkbox" id="gen-hiphop" name="genres" value="hip hop" hidden>
+      <label for="gen-hiphop" class="genero-btn" data-name="hip hop">
+        <img src="../img/HIP HOP 2.webp" alt="Hip Hop">
+        <span>HIP HOP</span>
+      </label>
+
+      <!-- REGUETÓN -->
+      <input type="checkbox" id="gen-regueton" name="genres" value="regueton" hidden>
+      <label for="gen-regueton" class="genero-btn" data-name="regueton">
+        <img src="../img/REGUUETON.webp" alt="Reguetón">
+        <span>REGUETÓN</span>
+      </label>
+
+      <!-- ELECTRÓNICA -->
+      <input type="checkbox" id="gen-electro" name="genres" value="electronica" hidden>
+      <label for="gen-electro" class="genero-btn" data-name="electronica">
+        <img src="../img/ELECTRONICA.webp" alt="Electrónica">
+        <span>ELECTRÓNICA</span>
+      </label>
+
+      <!-- ROCK -->
+      <input type="checkbox" id="gen-rock" name="genres" value="rock" hidden>
+      <label for="gen-rock" class="genero-btn" data-name="rock">
+        <img src="../img/ROCK.webp" alt="Rock">
+        <span>ROCK</span>
+      </label>
+
+      <!-- CLÁSICA -->
+      <input type="checkbox" id="gen-clasica" name="genres" value="clasica" hidden>
+      <label for="gen-clasica" class="genero-btn" data-name="clasica">
+        <img src="../img/CLASICA.webp" alt="Clásica">
+        <span>CLÁSICA</span>
+      </label>
+
+      <!-- K POP -->
+      <input type="checkbox" id="gen-kpop" name="genres" value="k pop" hidden>
+      <label for="gen-kpop" class="genero-btn" data-name="k pop">
+        <img src="../img/kpop.webp" alt="K Pop">
+        <span>K POP</span>
+      </label>
+
+      <!-- REGIONAL MEXICANO -->
+      <input type="checkbox" id="gen-regmex" name="genres" value="regional mexicano" hidden>
+      <label for="gen-regmex" class="genero-btn" data-name="regional mexicano">
+        <img src="../img/REGIONAL MEXICANO.webp" alt="Regional Mexicano">
+        <span>REGIONAL MEXICANO</span>
+      </label>
+
+      <!-- CUMBIA -->
+      <input type="checkbox" id="gen-cumbia" name="genres" value="cumbia" hidden>
+      <label for="gen-cumbia" class="genero-btn" data-name="cumbia">
+        <img src="../img/CUMBIAS 2.webp" alt="Cumbia">
+        <span>CUMBIA</span>
+      </label>
+
+      <!-- ALTERNATIVO -->
+      <input type="checkbox" id="gen-alternativo" name="genres" value="alternativo" hidden>
+      <label for="gen-alternativo" class="genero-btn" data-name="alternativo">
+        <img src="../img/ALTERNATIVO.webp" alt="Alternativo">
+        <span>ALTERNATIVO</span>
+      </label>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" id="confirmarBtn" class="confirmar-btn" formaction="../html/Usuario_Inicio.html">
+      LISTO
+    </button>
+  </form>
+
+  <script src="../js/Recomendaciones_Genero.js"></script>
+</body>
+</html>

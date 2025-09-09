@@ -1,0 +1,262 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PonyMusic - Configuraciones</title>
+    <link rel="stylesheet" href="{% static 'styles/Usuario/Styles_Usuario_Configuracion.css' %}">
+</head>
+<body>
+    <header class="app-header">
+        <h1>PonyMusic</h1>
+        <h2>Configuraciones</h2>
+    </header>
+
+    <main class="settings-container">
+        <section class="settings-block">
+            <h3>Email y contraseña</h3>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <span class="setting-label">Email</span>
+                    <span class="setting-value" id="current-email">correo@usuario.com</span>
+                </div>
+                <button class="edit-btn" id="edit-email-btn">Editar</button>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <span class="setting-label">Contraseña</span>
+                    <span class="setting-value">••••••••</span>
+                </div>
+                <button class="edit-btn" id="edit-password-btn">Editar</button>
+            </div>
+        </section>
+
+        <section class="settings-block account-block">
+            <h3>Cuenta</h3>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <span class="setting-label">Usuario</span>
+                    <span class="setting-value" id="current-username">NombreUsuario</span>
+                </div>
+                <button class="edit-btn" id="edit-username-btn">Editar</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal para actualizar email -->
+    <div class="modal-overlay" id="email-modal">
+        <div class="modal-content">
+            <h3>Actualiza el email</h3>
+            <form id="update-email-form" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="actializar_email">
+                <div class="form-group">
+                    <label for="new-email">Dirección de email</label>
+                    <input type="email" id="new-email" name="new-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-email">Confirma la dirección de email</label>
+                    <input type="email" id="confirm-email" name="confirm-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="current-password">Contraseña para confirmar los cambios</label>
+                    <input type="password" id="current-password" name="current-password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" id="cancel-email-btn">Cancelar</button>
+                    <button type="submit" name="action" value="actualizar_email" class="submit-btn">Actualizar email</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para actualizar contraseña -->
+    <div class="modal-overlay" id="password-modal">
+        <div class="modal-content">
+            <h3>Actualiza la contraseña</h3>
+            <form id="update-password-form" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="current-password-input">Contraseña actual</label>
+                    <input type="password" id="current-password-input" name="current-password-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-password">Contraseña nueva</label>
+                    <input type="password" id="new-password" name="new-password" required>
+
+                    <div class="password-requirements">
+                        <p>La contraseña debe tener al menos:</p>
+                        <ul>
+                            <li id="req-letter">○ 1 letra</li>
+                            <li id="req-special">○ 1 número o carácter especial</li>
+                            <li id="req-length">○ 10 caracteres</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-new-password">Confirmar contraseña nueva</label>
+                    <input type="password" id="confirm-new-password" name="confirm-new-password" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" id="cancel-password-btn">Cancelar</button>
+                    <button type="submit" name="action"  value="actualizar_contrasenia" class="submit-btn">Actualizar contraseña</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para actualizar nombre de usuario -->
+    <div class="modal-overlay" id="username-modal">
+        <div class="modal-content">
+            <h3>Cambiar nombre de usuario</h3>
+            <form id="update-username-form" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="actualizar_usuario">
+                <div class="form-group">
+                    <label for="new-username">Nuevo nombre de usuario</label>
+                    <input type="text" id="new-username" name="new-username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password-for-username">Contraseña</label>
+                    <input type="password" id="password-for-username" name="password-for-username" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" id="cancel-username-btn">Cancelar</button>
+                    <button type="submit" name="action"  value="actualizar_usuario" class="submit-btn">Actualizar nombre</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+   <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    // EMAIL
+    const editEmailBtn = document.getElementById('edit-email-btn');
+    const emailModal = document.getElementById('email-modal');
+    const cancelEmailBtn = document.getElementById('cancel-email-btn');
+    const updateEmailForm = document.getElementById('update-email-form');
+    const currentEmail = document.getElementById('current-email');
+    const newEmailInput = document.getElementById('new-email');
+
+    editEmailBtn.addEventListener('click', () => {
+        emailModal.style.display = 'flex';
+        newEmailInput.value = currentEmail.textContent;
+    });
+
+    cancelEmailBtn.addEventListener('click', () => {
+        emailModal.style.display = 'none';
+    });
+
+    emailModal.addEventListener('click', (e) => {
+        if (e.target === emailModal) emailModal.style.display = 'none';
+    });
+
+    updateEmailForm.addEventListener('submit', (e) => {
+        const newEmail = document.getElementById('new-email').value;
+        const confirmEmail = document.getElementById('confirm-email').value;
+
+        if (newEmail !== confirmEmail) {
+            e.preventDefault(); // Previene envío solo si hay error
+            alert('Los emails no coinciden');
+            return;
+        }
+    });
+
+    // PASSWORD
+    const editPasswordBtn = document.getElementById('edit-password-btn');
+    const passwordModal = document.getElementById('password-modal');
+    const cancelPasswordBtn = document.getElementById('cancel-password-btn');
+    const updatePasswordForm = document.getElementById('update-password-form');
+
+    editPasswordBtn.addEventListener('click', () => {
+        passwordModal.style.display = 'flex';
+    });
+
+    cancelPasswordBtn.addEventListener('click', () => {
+        passwordModal.style.display = 'none';
+    });
+
+    passwordModal.addEventListener('click', (e) => {
+        if (e.target === passwordModal) passwordModal.style.display = 'none';
+    });
+
+    updatePasswordForm.addEventListener('submit', (e) => {
+        const newPassword = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-new-password').value;
+
+        if (newPassword !== confirmPassword) {
+            e.preventDefault();
+            alert('Las contraseñas no coinciden');
+            return;
+        }
+
+        // Aquí ya no se limpia el formulario ni se cierra el modal
+        // Se permite que el form haga submit y se envíe al servidor
+    });
+
+    // Validación en vivo de contraseña
+    const newPasswordInput = document.getElementById('new-password');
+    const reqLetter = document.getElementById('req-letter');
+    const reqSpecial = document.getElementById('req-special');
+    const reqLength = document.getElementById('req-length');
+
+    newPasswordInput.addEventListener('input', () => {
+        const value = newPasswordInput.value;
+        reqLetter.style.color = /[a-zA-Z]/.test(value) ? 'green' : 'red';
+        reqSpecial.style.color = /[\d\W]/.test(value) ? 'green' : 'red';
+        reqLength.style.color = value.length >= 10 ? 'green' : 'red';
+    });
+
+    // USUARIO
+    const editUsernameBtn = document.getElementById('edit-username-btn');
+    const usernameModal = document.getElementById('username-modal');
+    const cancelUsernameBtn = document.getElementById('cancel-username-btn');
+    const currentUsername = document.getElementById('current-username');
+
+    editUsernameBtn.addEventListener('click', () => {
+        usernameModal.style.display = 'flex';
+    });
+
+    cancelUsernameBtn.addEventListener('click', () => {
+        usernameModal.style.display = 'none';
+    });
+
+    usernameModal.addEventListener('click', (e) => {
+        if (e.target === usernameModal) usernameModal.style.display = 'none';
+    });
+
+    document.getElementById('update-username-form').addEventListener('submit', function (e) {
+        const newUsername = document.getElementById('new-username').value.trim();
+        const password = document.getElementById('password-for-username').value.trim();
+
+        if (!newUsername || !password) {
+            alert('Por favor llena ambos campos.');
+            return;
+        }
+
+        console.log('Nuevo nombre:', newUsername);
+        console.log('Contraseña para validación:', password);
+
+        currentUsername.textContent = newUsername;
+        usernameModal.style.display = 'none';
+        alert('Nombre de usuario actualizado correctamente.');
+    });
+});
+</script>
+
+</body>
+<footer class="footer-nav">
+    <a href="{% url 'Usuario_Inicio' %}" class="home-btn">Regresar al Inicio</a>
+</footer>
+
+</html>

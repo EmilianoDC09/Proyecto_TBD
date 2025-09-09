@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PonyMusic Artista_NuevaMusica</title>
+  <link rel="stylesheet" href="{% static 'styles/Artista/Styles_Artista_NuevaMusica_Album.css' %}" />
+</head>
+<body>
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav>
+          <ul>
+              <h3>{{ usuario.nombre }}</h3>
+              <li><a href="{% url 'Artista_Inicio' %}" class="icon-home">Inicio</a></li>
+              <li><a href="{% url 'Artista_NuevaMusica' %}" class="icon-add">Nueva música</a></li>
+              <li><a href="{% url 'Artista_Configuracion' %}" class="icon-gear">Configuración</a></li>
+              <li><a href="{% url 'Artista_Archivos' %}" class="icon-folder">Archivos</a></li>
+          </ul>
+        </nav>
+      <div class="logo">
+        <img src="{%static 'images/Icon.jpg' %}" alt="Logo de PonyMusic">
+        <b>PonyMusic</b> <span>Artista</span>
+      </div>
+    </aside>
+    <!-- /Sidebar -->
+
+    <main>
+
+      <!-- Info button -->
+      <div class="info-container">
+        <button class="info-btn" onclick="toggleMenu()">🐎</button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="{% url 'Artista_Configuracion' %}">Configuración de la cuenta</a>
+          <a href="{% url 'login' %}">Cerrar sesión</a>
+        </div>
+      </div>
+      <!-- /Info button -->
+
+      <!-- Header de subida -->
+      <div class="upload-header">
+        <h1>Sube nueva música</h1>
+        <h2>Tipo / <strong>Carga</strong></h2>
+        <hr class="divider-hr" />
+        <p class="subtitle">Álbum</p>
+      </div>
+      <!-- /Header -->
+
+      <!-- Formulario POST -->
+      <!-- Aquí se envía (POST) toda la info del álbum, canciones y portada al servidor -->
+      <form
+        id="nuevaMusicaForm"
+        class="upload-section"
+        method="POST"
+        enctype="multipart/form-data"
+        action="{% url 'Artista_NuevaMusica_Album' %}"
+        
+      >
+        {% csrf_token %}
+        <div class="upload-content">
+
+          <!-- IZQUIERDA: datos -->
+          <div class="upload-info">
+
+            <div class="info-scroll">
+              <!--  Nombre del álbum -->
+              <label for="nombre_album">Nombre del álbum</label>
+              <input
+                id="nombre_album"
+                name="nombre_album"
+                type="text"
+                placeholder="Ponle un nombre a tu álbum"
+                required
+              />
+              <!-- Genero del álbum -->
+              <label for="genero_album">Género del álbum</label>
+              <select
+                id="genero_album"
+                name="genero_album"
+                required
+              >
+                <option value="">Elige un género</option>
+                {% for genero in generos %}
+                  <option value="{{ genero.id }}">
+                    {{ genero.nombre }}
+                  </option>
+                {% endfor %}
+              </select>
+              
+
+              <!-- Listado dinámico de canciones -->
+              <div class="songs-wrapper">
+                <div id="songsContainer">
+                  <div class="song-entry">
+                    <label>Nombre de la canción</label>
+                    <input
+                      name="cancion_nombre[]"
+                      type="text"
+                      placeholder="Ponle un nombre a tu canción"
+                      required
+                    />
+                    <label class="file-btn">
+                      Elige una canción
+                      <input
+                        name="cancion_archivo[]"
+                        type="file"
+                        accept="audio/*"
+                        class="song-file-input"
+                        required
+                      />
+                    </label>
+                    <input
+                      type="hidden"
+                      name="cancion_duracion[]"
+                      class="song-duration"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- /Listado de canciones -->
+
+              <!-- Agregar canción -->
+              <div style="text-align: right; margin: .5rem 0;">
+                <button type="button" id="addSongBtn" class="btn add-btn">
+                  + Agregar canción
+                </button>
+              </div>
+
+              <!-- Selector de portada -->
+              <label for="portada" class="file-btn">
+                Elige una portada
+                <input
+                  id="portada"
+                  name="portada"
+                  type="file"
+                  accept="image/*"
+                  required
+                />
+              </label>
+
+              <!-- Guardar (vista previa) -->
+              <div style="text-align: center; margin-top: 1rem;">
+                <button type="button" id="previewBtn" class="btn save-btn">
+                  Guardar
+                </button>
+              </div>
+
+            </div>
+          </div>
+          <!-- /upload-info -->
+
+          <!-- PREVIEW DERECHO -->
+          <div class="upload-preview">
+            <div class="preview-card">
+              <div class="preview-image">
+                <img id="preview-img" src="" alt="Portada preview" style="display:none"/>
+              </div>
+              <!-- Obtenemos el nombre del artista para la vista previa -->
+              <p class="preview-artist">{{ usuario.nombre }}</p>
+              <p class="preview-song">
+                <span id="preview-title">Nombre álbum</span>
+              </p>
+              <ol id="preview-list"></ol>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Enviar a revisión -->
+        <!-- Al pulsar aquí, se envía el form completo (POST)  -->
+        <div class="submit-row">
+          <button 
+            type="submit" 
+            class="btn submit-btn"
+
+          >
+            Enviar a revisión
+          </button>
+        </div>
+      </form>
+      <!-- /Form -->
+    </main>
+  </div>
+  <!-- Scripts -->
+  <script src="{% static 'js/Artista_CancionDinamica.js' %}"></script>
+  <script src="{% static 'js/Duracion_AudioSencillo.js' %}"></script>
+  <script src="{% static 'js/Artista_Guardar_Album.js' %}"></script>
+  <script src="{% static 'js/Artista_Salir.js' %}"></script>
+  
+</body>
+</html>
+

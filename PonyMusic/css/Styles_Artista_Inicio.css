@@ -1,0 +1,445 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Layout principal (container y sidebar) */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    background-color: #2c3e50;
+    color: #ffffff;
+    width: 240px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+        z-index: 100; /* Asegura que esté por encima */
+
+}
+
+/* Sidebar: navegación */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 16px 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0 -30px;
+    font-size: 16px; 
+    line-height: 1.5;
+}
+
+.sidebar ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+}
+
+.sidebar ul li:hover {
+    background-color: #162529;
+    cursor: pointer;
+}
+
+/* Sidebar: logo */
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 15px;
+}
+
+.sidebar .logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: text-bottom;
+}
+
+/* Íconos en la barra lateral */
+.icon-home, .icon-add, .icon-gear, .icon-folder {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-home::before,
+.icon-add::before,
+.icon-gear::before,
+.icon-folder::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: invert(1);
+    margin-right: 8px;
+    vertical-align: text-bottom;
+}
+
+.icon-home::before {
+    background-image: url('../assets/icons/house.svg');
+}
+
+.icon-add::before {
+    background-image: url('../assets/icons/add.svg');
+}
+
+.icon-gear::before {
+    background-image: url('../assets/icons/gear.svg');
+}
+
+.icon-folder::before {
+    background-image: url('../assets/icons/folder.svg');
+}
+
+/* Main (contenido principal) */
+main {
+    flex: 1;
+    padding: 50px;
+    margin-left: 240px; /* mismo ancho de tu sidebar */
+  height: 900PX;
+  overflow-y: auto;
+  
+    
+}
+
+h1 {
+    margin: 20px 0;
+}
+
+/* Botón de información */
+.info-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-btn:hover {
+    background-color: #162529;
+}
+
+/* Botón salir */
+.info-container {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+}
+
+/* Menú desplegable */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+.show {
+    display: block;
+}
+
+  /* ================================
+     CARRUSEL Y TARJETAS (MAIN)
+     ================================ */
+  
+  /* Sección carrusel */
+  .carousel-section {
+    margin-left: 72px;
+    margin-right: 72px;
+  }
+  
+  .section-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #F0F0F5;
+    margin-bottom: 12px;
+  }
+  
+  /* Wrapper con flechas */
+  .carousel-wrapper {
+    position: relative;
+    padding: 0 48px;
+  }
+  
+  /* Contenedor horizontal de tarjetas */
+  .carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+    overflow: visible;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .carousel::-webkit-scrollbar {
+    display: none;
+  }
+  /* Flechas de navegación */
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, width 0.2s ease, height 0.2s ease;
+    color: transparent;
+    font-size: 0;
+  }
+  .arrow:hover {
+    background-color: rgb(212, 207, 207);
+  }
+  
+  .arrow.left {
+    left: 8px;
+    margin-right: 10px;
+    background-image: url('../assets/icons/left.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+    filter: invert(1);
+  }
+  .arrow.right {
+    right: 8px;
+    margin-left: 10px;
+    background-image: url('../assets/icons/right.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+    filter: invert(1);
+  }
+
+  .arrow {
+    z-index: 10;
+  }
+  
+  
+  /* Tarjeta individual */
+  .card {
+    flex: 0 0 auto;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  /* Contenido de la tarjeta: imagen + texto */
+  .card-item {
+    position: relative;
+    overflow: visible;
+  }
+  
+  /* Botón portador de imagen */
+  .card-btn {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  /* Imagen de portada */
+.card-btn img {
+    width: 100%;
+    max-width: 180px;
+    max-height: 180px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 3px solid #000;
+    border-radius: 8px;
+    display: block;
+}
+
+  
+  /* Información debajo de la imagen */
+  .card-info {
+    margin-top: 8px;
+  }
+  .card-title,
+  .card-subtitle {
+    position: relative;
+    z-index: 1;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+  }
+  .card-subtitle {
+    font-size: 14px;
+    color: #ccc;
+    margin-top: 4px;
+  }
+  
+
+  
+  /* Asegurar stacking order */
+  .card-item,
+  .card-btn,
+  .card-btn img {
+    position: relative;
+    z-index: 2;
+  }
+  
+/* ==============================================================
+   Perfil de artista
+   ============================================================== */
+/* Cancelamos el padding lateral de .main-content */
+.artist-profile {
+  margin: 72px 72px 32px;
+}
+
+/* --------------------------------------------------------------
+   Tarjeta del artista
+   -------------------------------------------------------------- */
+.artist-card {
+  position: relative;       /* para posicionar .artist-info */
+  width: 100%;
+  max-width: 100%;
+  height: 460px;
+  background-color: #3A3F51;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+  cursor: grab;
+}
+
+/* --------------------------------------------------------------
+   Imagen del artista
+   -------------------------------------------------------------- */
+.artist-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 150%;       /* espacio extra para desplazar */
+  object-fit: cover;
+  object-position: center;
+}
+
+/* --------------------------------------------------------------
+   Información (texto) del artista
+   -------------------------------------------------------------- */
+.artist-info {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #FFFFFF;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.artist-name {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.artist-desc {
+  margin-top: 4px;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+
+/* ==============================================================
+   Scroll interno invisible sobre la imagen del artista
+   ============================================================== */
+/* El <button> que envuelve la imagen actúa de contenedor scrollable */
+.artist-btn {
+  display: block;           
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;         /* solo scroll vertical */
+  overflow-x: hidden;
+  padding: 0;
+  border: none;
+  background: none;
+
+  /* ocultar scrollbars */
+  scrollbar-width: none;    /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.artist-btn::-webkit-scrollbar {
+  width: 0; 
+  height: 0;                /* Chrome, Safari */
+}
+
+/* Contenedor interno extra (si lo usas) */
+.artwork-scroll {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: none;
+  outline: none;
+
+  /* ocultar scrollbars */
+  scrollbar-width: none;    
+  -ms-overflow-style: none; 
+}
+
+.artwork-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Textos de carrusel y perfil */
+.section-title,
+.card-title,
+.card-subtitle {
+    color: #000000 !important;
+}
+
+/* Fija el sidebar, manteniendo su ancho y estilo interno */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+

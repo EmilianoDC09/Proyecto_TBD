@@ -1,0 +1,180 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;  
+}
+
+/* Estilos de el inicio de sesion*/
+body{
+    background: linear-gradient(120deg, #1d202f, #949da8);
+    padding: 20px;
+}
+
+.container-all{
+    width: 100%px;
+    max-width: 1000px;
+    margin: auto;
+    margin-top: 100px;
+    display: flex;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.container-form{
+    width: 80%;
+    padding: 40px;
+    background:#a4a9b0;
+}
+
+.logo{
+    width: 150px;
+    display: block;
+}
+
+.title{
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 300;
+    color: #1d202f;
+}
+
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 300;
+    color: #1d202f;
+}
+
+input[type="text"], input[type="password"]{
+    width: 100%;
+    height: 30px;
+    background: rgba(0,0,0,0);
+    border: 0px;
+    outline: 0px;
+    border-bottom: 1px solid #1d202f ;
+    color: #1d202f;
+    font-size: 16px;
+}
+
+input[type="submit"]{
+    width: 100%;
+    height: 50px;
+    margin-top: 30px;
+    color: #a4a9b0;
+    border: 0px;
+    background: linear-gradient(120deg, #1d202f, #949da8);
+    font-weight: 300;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+input[type="submit"]:hover{
+    background: linear-gradient(120deg, #949da8, #1d202f);
+}
+
+input[type="date"]{
+    width: 100%;
+    height: 30px;
+    background: rgba(0,0,0,0);
+    border: 0px;
+    outline: 0px;
+    border-bottom: 1px solid #1d202f ;
+    color: #1d202f;
+    font-size: 16px;
+}
+input[type="radio"]{
+    margin-top: 15px;
+    height: 15px;
+    width: 30px;
+    background: rgba(0,0,0,0);
+    border: 0px;
+    outline: 0px;
+    border-bottom: 1px solid #1d202f ;
+    color: #1d202f;
+    accent-color: #1d202f;
+}
+input[type="checkbox"] {
+    display: inline-block; /* Permite que el checkbox esté en la misma línea */
+    margin-top: 30px; /* Espacio respecto a los radios */
+    height: 15px;
+    width: 15px; /* Ajusta el tamaño si es necesario */
+    accent-color: #1d202f;
+}
+
+label[for="soyArtista"] {
+    display: inline-block; /* Hace que el texto esté en línea con el checkbox */
+    margin-left: 10px; /* Espacio entre el checkbox y el texto */
+    font-size: 16px;
+    color: #1d202f;
+}
+.text-footer{
+    display: block;
+    margin-top: 40px;
+    text-align: center;
+    color: #1d202f;
+    font-weight: 50;
+}
+
+.text-footer a{
+    color: #1d202f;
+    font-weight: 750;
+}
+
+/* Lado de el icono degradado y descrpcion  */
+
+.container-text{
+    width: 100%;
+    background-image: url(../../images/Icon.jpg);
+    background-position: center;
+    background-size: cover;
+    padding: 40px;
+    position: relative;
+}
+
+.capa_de_texturizado{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, #949da8, #1d202f);
+    opacity: 0.8;
+}
+
+.title-description{
+    position: relative;
+    color: #1d202f;
+    top: 15px;
+    font-weight: 300;
+    font-size: 40px;
+}
+
+.text-description{
+    position: relative;
+    color: #1d202f;
+    top: 110px;
+    font-weight: 200;
+    font-size: 18px;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 800px){
+    .container-text{
+        display: none;
+    }
+
+    .container-form{
+        margin: auto;
+        width: 100%;
+        background: #a4a9b0;
+    }
+
+    .container-text{
+        display: none;
+    }
+}

@@ -1,0 +1,85 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PonyMusic Artista_Inicio</title>
+  <link rel="stylesheet" href="{% static 'styles/Artista/Styles_Artista_Album.css' %}">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav>
+        <ul>
+            <h3>{{ usuario.nombre }}</h3>
+            <li><a href="{% url 'Artista_Inicio' %}" class="icon-home">Inicio</a></li>
+            <li><a href="{% url 'Artista_NuevaMusica' %}" class="icon-add">Nueva música</a></li>
+            <li><a href="{% url 'Artista_Configuracion' %}" class="icon-gear">Configuración</a></li>
+            <li><a href="{% url 'Artista_Archivos' %}" class="icon-folder">Archivos</a></li>
+        </ul>
+        </nav>
+
+      <div class="logo">
+        <img src="../../static/images/Icon.jpg" alt="Logo de PonyMusic">
+        <b>PonyMusic</b> <span>Artista</span>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <h1>Album</h1>
+<!-- Botón de información y menú desplegable -->
+      <div class="info-container">
+          <button class="info-btn" onclick="toggleMenu()">🐎</button>
+          <div class="dropdown-menu" id="dropdownMenu">
+              <a href="{% url 'Artista_Configuracion' %}">Configuración de la cuenta</a>
+              <a href="{% url 'login' %}">Cerrar sesión</a>
+          </div>
+      </div>
+
+      <!-- Encabezado gris del sencillo -->
+      <section class="sencillo-header">
+        <div class="artwork">
+          <img src="{{ album.portada.url }}" alt="{{ album.portada }}">
+        </div>
+        <div class="info">
+          <h1 class="title">{{ album.nombre }}</h1>
+          <h2 class="artist">{{ usuario.nombre }}</h2>
+          <p class="year">Año de lanzamiento: {{ cancion.fecha_lanzamiento.año }}</p>
+          <p class="count">Cantidad de canciones: {{ canciones.count }}</p>
+        </div>
+      </section>
+
+      <!-- Lista de pistas -->
+      <table class="tracklist">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Título</th>
+            <th>Artista</th>
+            <th><span class="icon-clock"></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="separator">
+            <td colspan="4"><hr></td>
+          </tr>
+
+          {% for cancion in canciones %}
+            <tr data-song-id="{{ cancion.id }}">
+              <td>{{ forloop.counter }}</td>
+              <td>{{ cancion.nombre }}</td>
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ cancion.duracion }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </main>
+
+  <script src="../../static/js/Artista_Salir.js"></script>
+</body>
+</html>

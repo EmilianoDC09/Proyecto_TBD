@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Usuario (Inicio)</title>
+  <link rel="stylesheet" href="../css/Styles_Usuario_Inicio.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header fijo -->
+    <header class="header">
+      <div class="search-pill">
+        <button class="icon-btn home-btn"       aria-label="Inicio"   title="Inicio"></button>
+        <div class="pill-separator"></div>
+        <div class="search">
+          <span class="search-icon"></span>
+          <input type="text"
+                 id="searchInput"
+                 placeholder="¿Qué quieres reproducir?" />
+        </div>
+        <div class="pill-separator"></div>
+        <button class="icon-btn action-btn"     aria-label="Géneros" title="Géneros"></button>
+      </div>
+    </header>
+
+    <!-- Sidebar fijo -->
+    <aside class="sidebar">
+      <nav>
+        <ul>
+          <li>Biblioteca</li>
+          <li>Crear playlist</li>
+          <li>Tus me gusta</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+      <!-- tu carrusel y secciones -->
+    </main>
+
+    <!-- Reproductor fijo -->
+    <footer class="player">
+      <!-- Este es el elemento <audio> que controla toda la reproducción -->
+      <audio class="audio-player"></audio>
+
+      <div class="player-bottom">
+
+        <!-- controles + barra de progreso -->
+        <div class="progress-wrapper">
+          <div class="controls">
+            <button class="control-btn aleatorio-btn"    aria-label="Aleatorio"  title="Aleatorio"></button>
+            <button class="control-btn atras-btn"        aria-label="Anterior"   title="Anterior"></button>
+            <button class="control-btn play-btn"         aria-label="Play/Pausa" title="Play/Pausa"></button>
+            <button class="control-btn siguiente-btn"   aria-label="Siguiente"  title="Siguiente"></button>
+          </div>
+          <div class="progress-container">
+            <span class="time current">1:48</span>
+            <input type="range" class="progress" min="0" max="100" value="35">
+            <span class="time total">2:49</span>
+          </div>
+        </div>
+
+        <!-- volumen -->
+        <div class="volume-container">
+          <button class="volume-icon" aria-label="Volumen" title="Volumen"></button>
+          <input type="range" class="volume-slider" min="0" max="100" value="80">
+        </div>
+
+        <!-- info de pista + portada -->
+        <div class="track-info-container">
+          <div class="info">
+            <span class="track-name">Nombre canción</span>
+            <span class="artist-name">Nombre artista</span>
+          </div>
+          <div class="album-art">
+            <img src="../img/DATA.png" alt="Imagen álbum o foto">
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/volumen.js"></script>
+  <script src="../js/controles copy.js"></script>
+</body>
+</html>

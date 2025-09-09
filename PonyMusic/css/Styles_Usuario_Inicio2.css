@@ -1,0 +1,61 @@
+/* ====================
+   Sidebar & sus items
+   ==================== */
+   .sidebar {
+    grid-area: sidebar;
+    background: #283646;
+    border-radius: 10px;
+    padding: 16px;
+    overflow-y: auto;
+  }
+  
+  .sidebar nav ul {
+    list-style: none;
+  }
+  
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+  
+  /* El texto de cada item */
+  .sidebar-item span {
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  /* ====================
+     Icon buttons del sidebar
+     ==================== */
+  .icon-btn {
+    background-color: #283646;
+    filter: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 26px;
+    height: 32px;
+    border: none;
+  }
+  
+  /* Biblioteca (libro) */
+  .lib-btn {
+    mask: url('../assets/icons/library.svg') no-repeat center / contain;
+    -webkit-mask: url('../assets/icons/library.svg') no-repeat center / contain;
+  }
+  
+  /* Crear playlist (plus) */
+  .plus-btn {
+    mask: url('../assets/icons/plus.svg') no-repeat center / contain;
+    -webkit-mask: url('../assets/icons/plus.svg') no-repeat center / contain;
+  }
+  
+  /* Tus me gusta (heart) */
+  .heart-btn {
+    mask: url('../assets/icons/heart.svg') no-repeat center / contain;
+    -webkit-mask: url('../assets/icons/heart.svg') no-repeat center / contain;
+  }
+  

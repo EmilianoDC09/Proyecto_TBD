@@ -1,0 +1,338 @@
+/* Reset & Base */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Layout principal */
+  .container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  /* Sidebar — fondo y contenedor */
+  .sidebar {
+    background-color: #2c3e50;
+    color: #ffffff;
+    width: 240px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* Sidebar navegación */
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .sidebar ul li {
+    padding: 16px 25px;
+    margin: 0 -30px;
+    font-size: 16px;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .sidebar ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+  }
+  .sidebar ul li:hover {
+    background-color: #162529;
+  }
+  
+  /* Sidebar logo */
+  .sidebar .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    font-size: 20px;
+  }
+  .sidebar .logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: text-bottom;
+  }
+  
+  /* Sidebar iconos */
+  .icon-home,
+  .icon-add,
+  .icon-gear,
+  .icon-folder {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .icon-home::before   { background-image: url('../../icons/house.svg'); }
+  .icon-add::before    { background-image: url('../../icons/add.svg'); }
+  .icon-gear::before   { background-image: url('../../icons/gear.svg'); }
+  .icon-folder::before { background-image: url('../../icons/folder.svg'); }
+  .icon-home::before,
+  .icon-add::before,
+  .icon-gear::before,
+  .icon-folder::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: invert(1);
+    margin-right: 8px;
+    vertical-align: text-bottom;
+  }
+  /* ===== Main ===== */
+  main {
+    flex: 1;
+    padding: 50px;
+    background-color: #fff;
+    position: relative;
+  }
+  
+  /* Info button */
+  .info-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  .info-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .info-btn:hover {
+    background-color: #162529;
+  }
+  
+  /* Dropdown */
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: #f9f9f9;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+  .dropdown-menu.show {
+    display: block;
+  }
+  .dropdown-menu a {
+    display: block;
+    padding: 12px 16px;
+    color: #000;
+    text-decoration: none;
+  }
+  .dropdown-menu a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* ===== Cabecera ===== */
+  .upload-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .upload-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  .upload-header h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 0.5rem 0;
+  }
+  .divider-hr {
+    width: 60%;
+    border: none;
+    border-top: 1px solid #000;
+    margin: 1rem auto;
+  }
+  .subtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+  
+  /* ===== Formulario ===== */
+  .upload-section {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .upload-content {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  /* Izquierda: datos */
+  .upload-info {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+  .upload-info .info-header {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .upload-info label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .upload-info input[type="text"],
+  .upload-info select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* ===== Estilo para <input type="file"> nativo ===== */
+  .upload-info input[type="file"] {
+    font: inherit;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 0.75rem;
+  }
+  /* Botón interno personalizado */
+  .upload-info input[type="file"]::file-selector-button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #2c3e50;
+    color: #ffffff;
+    border: none;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .upload-info input[type="file"]::file-selector-button:hover {
+    background-color: #162529;
+  }
+  
+  /* Cambiar texto del botón de selector por input específico */
+  #cancion::file-selector-button {
+    content: "Selecciona tu canción";
+  }
+  #portada::file-selector-button {
+    content: "Selecciona una imagen";
+  }
+  
+  /* Mostrar nombre de archivo junto al input (si tienes <span class="file-info">) */
+  .file-info {
+    display: inline-block;
+    margin-left: 0.75rem;
+    font-size: 0.9rem;
+    color: #333;
+    vertical-align: middle;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Botón “Guardar” (solo vista previa) */
+  .btn.save-btn {
+    display: block;
+    margin: 1.5rem auto 0;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    width: 140px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  .btn.save-btn:hover {
+    background-color: #162529;
+  }
+  
+  /* Derecha: preview */
+  .upload-preview {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .preview-card {
+    text-align: center;
+    background: #333;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    transform: scale(1.3);
+    transform-origin: center;
+  }
+  .preview-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: none;
+    margin: 0 auto 1rem;
+  }
+  .preview-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .preview-artist,
+  .preview-song {
+    margin: 0.2rem 0;
+  }
+  
+  /* Submit-row */
+  .submit-row {
+    text-align: right;
+    margin-top: 1rem;
+  }
+  .btn.submit-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: #2c3e50;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    width: 140px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  .btn.submit-btn:hover {
+    background-color: #162529;
+  }
+  
+  /* Oculta los spans de nombre y duración que salen debajo */
+#cancion-name,
+#cancion-duracion {
+  display: none !important;
+}
+
+.upload-info .audio-btn,
+.upload-info .file-btn {
+  display: block;      /* asegúrate de que cada uno ocupe su línea */
+  margin-bottom: 30px; /* separación entre ellos */
+}

@@ -1,0 +1,97 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PonyMusic Artista_Configuracion</title>
+    <link rel="stylesheet" href="{% static 'styles/Artista/Styles_Artista_Configuracion.css' %}?v=1">
+</head>
+<body>
+    <div class="container">
+
+        <!-- Barra lateral -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <h3>{{ usuario.nombre }}</h3>
+                    <li><a href="{% url 'Artista_Inicio' %}" class="icon-home">Inicio</a></li>
+                    <li><a href="{% url 'Artista_NuevaMusica' %}" class="icon-add">Nueva música</a></li>
+                    <li><a href="{% url 'Artista_Configuracion' %}" class="icon-gear">Configuración</a></li>
+                    <li><a href="{% url 'Artista_Archivos' %}" class="icon-folder">Archivos</a></li>
+                </ul>
+            </nav>
+            <div class="logo">
+                <img src="../../static/images/Icon.jpg" alt="Logo de PonyMusic">
+                <b>PonyMusic</b> <span>Artista</span>
+            </div>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main>
+            <h1>Mostrar preferencias</h1>
+
+            <!-- Menú desplegable -->
+            <div class="info-container">
+                <button class="info-btn" onclick="toggleMenu()">🐎</button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="{% url 'Artista_Configuracion' %}">Configuración de la cuenta</a>
+                    <a href="{% url 'login' %}">Cerrar sesión</a>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Campo para el género -->
+                <h2 for="fotoPerfil">Foto de perfil</h2>
+                {% if usuario.foto %}
+                    <img src="{{ usuario.foto.url }}" alt="Foto actual" style="max-width: 100px; max-height: 100px;">
+                {% else %}
+                    <img src="../../static/Foto_perfiles/default.jpg" alt="Foto de perfil por defecto" style="max-width: 150px; max-height: 150px;">
+                {% endif %}
+                <input
+                    
+                    type="file"
+                    id="fotoPerfil"
+                    name="fotoPerfil"
+                    accept="image/*"
+                >
+
+                <!-- Campo para el nombre artístico -->
+                <h2 for="nombreArtistico">Nombre artístico</h2>
+                <label for="nombreArtistico">Visible para todos</label>
+                <input
+                    type="text"
+                    id="nombreArtistico"
+                    name="nombreArtistico"
+                    placeholder="Agrega un nombre genial aquí"
+                >
+
+                <!-- Campo para la descripción -->
+                <h2 for="descripcion">Descripción</h2>
+                <input
+                    type="text"
+                    id="descripcion"
+                    name="descripcion"
+                    placeholder="Cuéntale a los fans sobre ti..."
+                >
+
+                
+                
+
+                <input
+                    type="submit"
+                    value="Guardar"
+                    class="guardar-btn"
+                >
+            </form>
+        </main>
+
+    </div>
+
+    <script src="../../static/js/Artista_Salir.js"></script>
+</body>
+</html>

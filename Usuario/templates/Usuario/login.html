@@ -1,0 +1,47 @@
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/Usuario/style.css' %}">
+
+</head>
+<body>
+    <div class="container-all">
+        <!-- Labels y txts para la informacion de inicio de sesion  -->
+        <div class="container-form">
+            <!--<img src="../Images/Icon.jpg" alt="" class="logo"> -->
+            <h1 class="title">Iniciar Sesión</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <label for="mail">Email</label>
+                <input type = "text", id="correo", name="correo">
+                <br>
+                <br>
+                <label for="contrasenia">Contraseña</label>
+                <input type = "password", name="contrasenia">
+                <br>
+                <br>
+                <input type = "submit" value = "Iniciar">
+            </form>
+
+            <span class="text-footer">¿Aún no tienes una cuenta? <a href="{% url 'register' %}">Registrate</a></span> 
+        </div>
+
+        <!-- Imagen de fondo -->
+        <div class="container-text">
+            <div class="capa_de_texturizado"></div>
+               <h1 class="title-description"></h1>
+                
+        </div>
+</body>
+
+</html>
+{% endblock %}
